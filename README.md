@@ -1,9 +1,10 @@
 # Deep Learning & Regression Projects
 
-This repository contains two independent machine learning projects:
+This repository contains three independent machine learning projects:
 
 1. [World Cup Jersey Recognition — Neural Network From Scratch](#1-world-cup-jersey-recognition--neural-network-from-scratch)
 2. [Player Rating Prediction — Linear & Polynomial Regression](#2-player-rating-prediction--linear--polynomial-regression)
+3. [PCA From Scratch — Dimensionality Reduction](#3-pca-from-scratch--dimensionality-reduction)
 
 ---
 
@@ -13,9 +14,11 @@ This repository contains two independent machine learning projects:
 .
 ├── README.md
 ├── neural-network/
-│   └── Task4.ipynb              # Autograd engine, MLP from scratch, PyTorch MNIST
-└── player-rating-regression/
-    └── cmpetition file# Linear & polynomial regression on player stats
+│   └── Task4.ipynb                    # Autograd engine, MLP from scratch, PyTorch MNIST
+├── player-rating-regression/
+│   └── Competition.ipynb            # Linear & polynomial regression on player stats
+└── pca/
+    └── Task2.2&2.3_PCA.ipynb          # PCA from scratch + applied to a real dataset
 ```
 
 ---
@@ -100,6 +103,41 @@ model, RMSE/R² on the test set, and the polynomial degree that generalized best
 cd player-rating-regression
 pip install numpy pandas scikit-learn matplotlib seaborn
 jupyter notebook player_rating.ipynb
+```
+
+---
+
+## 3. PCA From Scratch — Dimensionality Reduction
+
+### Overview
+An implementation of Principal Component Analysis (PCA) built directly on top of
+NumPy, split into two parts:
+
+- **Task 2.2 — Implement PCA.** Mean-center the data, compute the covariance
+  matrix, eigendecompose it (`np.linalg.eigh`), sort by eigenvalue, and project
+  the data onto the top-k eigenvectors. Verified against scikit-learn's `PCA` —
+  explained variance and the transformed coordinates match exactly (up to the
+  sign ambiguity inherent to eigenvectors).
+- **Task 2.3 — Apply PCA.** Run the from-scratch implementation on the
+  scikit-learn `digits` dataset (1,797 samples, 64 features):
+  - A scree plot and cumulative explained-variance curve, showing how many
+    components are needed to capture 90%/95% of the total variance.
+  - A 2D projection of the full dataset, colored by digit label.
+  - Reconstruction error (MSE) as a function of how many components are kept,
+    plus a visual original-vs-reconstructed comparison for a handful of digits.
+
+### Results
+On the digits dataset: the first 2 components explain roughly 28% of total
+variance combined; ~21 components are needed to reach 90% of the variance and
+~29 for 95% (out of 64 original features) — a solid ~2-3x compression before
+losing meaningful information. Reconstruction error drops sharply between
+`k=1` and `k=20`, then flattens out.
+
+### How to run
+```bash
+cd pca
+pip install numpy scikit-learn matplotlib
+jupyter notebook "Task2.2&2.3_PCA.ipynb"
 ```
 
 ---
